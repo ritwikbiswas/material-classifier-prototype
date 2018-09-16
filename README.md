@@ -20,4 +20,4 @@ adaboost (n-est = 1000) [decision tree(split = 20)] -----> train:99%, test:80%
 adaboost (n-est = 1000) [decision tree(split = 15)] -----> train:99%, test:80%
 adaboost (n-est = 1000) [gradient boost] -----> train:92%, test:69%
 
-adaboost (n-est = 1000) [decision tree(split = 20)] -----> train:%, test:%
+adaboost (n-est = 1000) [decision tree(split = 20)] -----> train:%, test:
