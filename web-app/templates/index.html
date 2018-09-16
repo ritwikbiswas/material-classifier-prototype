@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class = "row">
+        <h2><span style="color: #f44336"><b>material</b></span> classification engine</h2>
+        <h6>a <a href="https://www.hermanmiller.com/">@hermanmiller</a> prototype for classifying fabrics</h6>
+        <div class="row">
+            <div class="col s3 ">
+              </div>
+            <div class="col s2 m6">
+              <div style="padding-top: 100px;">
+                  <h3>live<b> models</b> </h3>
+              <div class="card red">
+                
+                  <div class="collection red">
+                      <a href="#!" class="collection-item ">ImageNet Inception v3 Color classifier</a>
+                      <a href="#!" class="collection-item active">RGB Adaboost Decision Tree Classifier - 80% accuracy</a>
+                      <a href="#!" class="collection-item">ImageNet Inception v3 Pattern classifier</a>
+                    </div>
+              </div>
+              <!--<div class="center-align">
+              <h5><span style="color: #000000"> Submit an image below to see the results</b></span></h5>
+              </div>-->
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="center-align">
+        <div >
+    
+        <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+          <label class="btn red ">
+              <input  type=file name=photo>
+          </label>
+
+          <input class = 'btn grey' type="submit">
+        </form>
+
+        </div>
+      </div>
+      
+
+    </div>
+    
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+  </body>
+</html>
+      
