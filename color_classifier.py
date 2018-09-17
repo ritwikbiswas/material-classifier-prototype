@@ -14,6 +14,7 @@ from time import time
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 from mpl_toolkits.mplot3d import Axes3D
 import random
 import pickle
@@ -68,7 +69,7 @@ def color_mean_extractor(image_location):
     rgb_color_mean = [color_mean[2], color_mean[1], color_mean[0]]
     return rgb_color_mean
 
-def iterate_over_images(root_dir):
+def iterate_over_images(root_dir,mode):
     '''
     Extract images from all pictures and analyze RGB in sub folders of classes
     Return feature np array and label np array
@@ -113,6 +114,8 @@ def iterate_over_images(root_dir):
             total_count += 1
 
             #add mean and labels to vectors
+            if mode == "graph" and count == 500:
+                break
             if count%100 == 0: # 1% of data is split for testing
                 rgb_features_test.append(rgb_mean)
                 class_labels_test.append(label_class)
@@ -186,7 +189,7 @@ def train_model(features_train, labels_train, features_test, labels_test, label_
     # Adaboost Test
     base_model_stack = tree.DecisionTreeClassifier(min_samples_split=20)
     #base_model_stack = GradientBoostingClassifier()
-    clf = AdaBoostClassifier(n_estimators=100000, base_estimator=base_model_stack)
+    clf = AdaBoostClassifier(n_estimators=1000, base_estimator=base_model_stack)
     #clf = AdaBoostClassifier(n_estimators=100000, base_estimator=base_model_stack) # Score: 0.936
 
     ###########################################################################
@@ -267,26 +270,36 @@ def main():
     '''
     Driver function for extraction and training
     '''
+    root = '/Users/ritwikbiswas'
+
+    #Take in arg parsing here
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-m", "--mode", required=True, help="Choose from mode 'train', 'graph', 'predict'")
+    args = vars(ap.parse_args())
 
     # Define root directory to training data <<CHANGE HERE>>
     root_dir = '/Users/ritwikbiswas/rgb-classifier/color_master/'
 
     #Extract RGB Features
-    features_train, labels_train, features_test, labels_test, label_map = iterate_over_images(root_dir)
+    mode = args["mode"]
+    features_train, labels_train, features_test, labels_test, label_map = iterate_over_images(root_dir,mode)
 
-    #Graph Data on 3D axis to check for clustering
-    #graph_data(features, labels, label_map)
+    if args["mode"] == 'graph':
+        #Graph Data on 3D axis to check for clustering
+        graph_data(features_train, labels_train, label_map)
 
-    #train model here
-    train_model(features_train, labels_train, features_test, labels_test, label_map)
+    elif args["mode"] == 'train':
+        #train model here
+        train_model(features_train, labels_train, features_test, labels_test, label_map)
 
-    # Define test directory with pictures to train on
-    #test_dir = '/Users/ritwikbiswas/rgb-classifier/test_color'
+    elif args["mode"] == 'test':
+        # Define test directory with pictures to train on
+        test_dir = '/Users/ritwikbiswas/rgb-classifier/test_color'
 
-    #test model here
-    #model_path = '/Users/ritwikbiswas/rgb-classifier/svm_0.76_0.63.sav'
-    #label_map_path = '/Users/ritwikbiswas/rgb-classifier/labels.txt'
-    #test_model(test_dir, model_path, label_map_path)
+        #test model here
+        model_path = '/Users/ritwikbiswas/rgb-classifier/svm_0.76_0.63.sav'
+        label_map_path = '/Users/ritwikbiswas/rgb-classifier/labels.txt'
+        test_model(test_dir, model_path, label_map_path)
 
 if __name__ == '__main__':
     main()
