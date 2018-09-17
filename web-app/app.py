@@ -16,6 +16,14 @@ configure_uploads(app, photos)
 def index():
     return render_template("index.html")
 
+@app.route("/about.html")
+def about():
+    return render_template("about.html")
+
+#@app.route("/PAGE.html")
+#def NAME():
+#    return render_template("PAGE.html")
+
 def extract_model(filename):
     '''
     Extract pickled model
