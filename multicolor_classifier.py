@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-Author: Ritwik Biswas and David Huang
+Author: Ritwik Biswas and David Xuan
 Description: Multicolor classifier
 Splits pictures into NxN pixel windows, determines color of box and stores color distribution
 '''
