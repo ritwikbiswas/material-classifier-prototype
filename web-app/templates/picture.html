@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}"> -->
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300" rel="stylesheet">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" src="js/picture.plugin.js" ></script>
+    </head>
 
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
-
-  <body>
+    <body style="background-image: url({{url_for('static', filename='4.png')}})">
+            <nav class="transparent">
+                <div class="nav-wrapper">
+                    <a href="#" style='padding-top: 8px; padding-left: 8px' class="brand-logo">
+                        <img class="responsive-img" src="{{url_for('static', filename='herman-miller-logo.svg')}}">
+                    </a>
+                    <a href="#" style='font-family: Nunito; padding-left: 60px' class="brand-logo">Materialize Classification Engine</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="/"><i class="material-icons">home</i></a></li>
+                        <li><a href="/about.html"><i class="material-icons">info</i></a></li>
+                    </ul>
+                </div>
+            </nav>
         <div class="container">
-                <div style="padding-top: 40px;">
-            <a href="/" class="waves-effect waves-light btn red darken-1"><i class="material-icons right">home</i>Home</a>
-            </div>
             <div class="row">
-                <div style="padding-top: 200px;">
-                        <div class="col s3 ">
+                <div style="padding-top: 200px;">    
+                    <div class="col s2 m6">
+                        <div class="card large">
+                            <div class="card-image">
+                                <img src={{data[0][0]}}>
                             </div>
-                            <div class="col s2 m6">
-                    <div class="card large">
-                        <div class="card-image">
-                        <img src={{data[0]}}>
-                        </div>
-                        <div class="card-content">
-                                <div class="center-align">
-                        <h1> <b>{{data[1]}} </b></h1>
-                        </div>
+                            <div class="card-content">
+                                <div class="left-align">
+                                    <h3 style='font-family: Nunito; font-weight: bold;'><b>{{data[0][1]}}</b></h3>
+                                    <h5 style='font-family: Nunito; font-weight: bold;'><b>Blank Style</b></h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div class="col s2 m6">
+                        <div class="card large">
+                            <div class="card-content">
+                                <div id="piechart" style="width: 700px; height: 500px;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
        <!--JavaScript at end of body for optimized loading-->
-       <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
-  </html>
+</html>

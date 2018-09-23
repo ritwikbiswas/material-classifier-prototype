@@ -6,3 +6,5 @@ sklearn==0.0
 scipy==1.1.0
 pickleshare==0.7.4
 gunicorn==19.9.0
+scikit-image==0.14.0
+numpy==1.14.3 

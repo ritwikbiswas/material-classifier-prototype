@@ -1,0 +1,41 @@
+Full Data: 
+[
+	['static/img/281260002_scale_1.jpg(0,0)', 'BEIGE(0,1)', 
+		[
+			['Color(0,2,0,0)', 'Frequency(0,2,0,1)'](0,2,0), 
+			['METALLIC', 0], 
+			['BROWN', 126], 
+			['MISC', 0], 
+			['GREEN', 556], 
+			['GRAY', 319], 
+			['BLUE', 0], 
+			['PINK', 0], 
+			['RED', 0], 
+			['VIOLET', 0], 
+			['BEIGE', 6611], 
+			['YELLOW', 10], 
+			['WHITE', 0], 
+			['BLACK', 0], 
+			['ORANGE', 1]
+		]
+	], 
+	['static/img/281340001_detail.jpg(1,0)', 'BEIGE(1,1)', 
+		[
+			['Color', 'Frequency'](1,2,0), 
+			['METALLIC', 0], 
+			['BROWN', 0], 
+			['MISC', 0], 
+			['GREEN', 221], 
+			['GRAY', 363], 
+			['BLUE', 0], 
+			['PINK', 0], 
+			['RED', 0], 
+			['VIOLET', 0], 
+			['BEIGE', 9062], 
+			['YELLOW', 138], 
+			['WHITE', 17], 
+			['BLACK', 0], 
+			['ORANGE', 0]
+		]
+	]
+]
