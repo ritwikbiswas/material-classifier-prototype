@@ -15,108 +15,107 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var metallic = '{{data[0][2][1][0]}}';
-        var metallic_data = parseInt('{{data[0][2][1][1]}}')
+        function drawChart() {
+          var metallic = '{{data[0][2][1][0]}}';
+          var metallic_data = parseInt('{{data[0][2][1][1]}}');
 
-        var brown = '{{data[0][2][2][0]}}';
-        var brown_data = parseInt('{{data[0][2][2][1]}}')
+          var brown = '{{data[0][2][2][0]}}';
+          var brown_data = parseInt('{{data[0][2][2][1]}}');
 
-        var misc = '{{data[0][2][3][0]}}';
-        var misc_data = parseInt('{{data[0][2][3][1]}}')
+          var misc = '{{data[0][2][3][0]}}';
+          var misc_data = parseInt('{{data[0][2][3][1]}}');
 
-        var green = '{{data[0][2][4][0]}}';
-        var green_data = parseInt('{{data[0][2][4][1]}}')
+          var green = '{{data[0][2][4][0]}}';
+          var green_data = parseInt('{{data[0][2][4][1]}}');
 
-        var gray = '{{data[0][2][5][0]}}';
-        var gray_data = parseInt('{{data[0][2][5][1]}}')
+          var gray = '{{data[0][2][5][0]}}';
+          var gray_data = parseInt('{{data[0][2][5][1]}}');
 
-        var blue = '{{data[0][2][6][0]}}';
-        var blue_data = parseInt('{{data[0][2][6][1]}}')
+          var blue = '{{data[0][2][6][0]}}';
+          var blue_data = parseInt('{{data[0][2][6][1]}}');
 
-        var pink = '{{data[0][2][7][0]}}';
-        var pink_data = parseInt('{{data[0][2][7][1]}}')
+          var pink = '{{data[0][2][7][0]}}';
+          var pink_data = parseInt('{{data[0][2][7][1]}}');
 
-        var red = '{{data[0][2][8][0]}}';
-        var red_data = parseInt('{{data[0][2][8][1]}}')
+          var red = '{{data[0][2][8][0]}}';
+          var red_data = parseInt('{{data[0][2][8][1]}}');
 
-        var violet = '{{data[0][2][9][0]}}';
-        var violet_data = parseInt('{{data[0][2][9][1]}}')
+          var violet = '{{data[0][2][9][0]}}';
+          var violet_data = parseInt('{{data[0][2][9][1]}}');
 
-        var beige = '{{data[0][2][10][0]}}';
-        var beige_data = parseInt('{{data[0][2][10][1]}}')
+          var beige = '{{data[0][2][10][0]}}';
+          var beige_data = parseInt('{{data[0][2][10][1]}}');
 
-        var yellow = '{{data[0][2][11][0]}}';
-        var yellow_data = parseInt('{{data[0][2][11][1]}}')
+          var yellow = '{{data[0][2][11][0]}}';
+          var yellow_data = parseInt('{{data[0][2][11][1]}}');
 
-        var white = '{{data[0][2][12][0]}}';
-        var white_data = parseInt('{{data[0][2][12][1]}}')
+          var white = '{{data[0][2][12][0]}}';
+          var white_data = parseInt('{{data[0][2][12][1]}}');
 
-        var black = '{{data[0][2][13][0]}}';
-        var black_data = parseInt('{{data[0][2][13][1]}}')
+          var black = '{{data[0][2][13][0]}}';
+          var black_data = parseInt('{{data[0][2][13][1]}}');
 
-        var orange = '{{data[0][2][14][0]}}';
-        var orange_data = parseInt('{{data[0][2][14][1]}}')
+          var orange = '{{data[0][2][14][0]}}';
+          var orange_data = parseInt('{{data[0][2][14][1]}}');
 
-        var data = google.visualization.arrayToDataTable([
-          ['{{data[0][2][0][0]}}', '{{data[0][2][0][1]}}'],
-          [metallic,     metallic_data],
-          [brown,     brown_data],
-          [misc,     misc_data],
-          [green,     green_data],
-          [gray,     gray_data],
-          [blue,     blue_data],
-          [pink,     pink_data],
-          [red,     red_data],
-          [violet,     violet_data],
-          [beige,     beige_data],
-          [yellow,     yellow_data],
-          [white,     white_data],
-          [black,     black_data],
-          [orange,     orange_data]
-        ]);
-        ['']
-        var options = {
-          title: 'Color Distribution',
-          colors: ["#dbd9d9", "#996633", "#ccffcc","#009933", "#a7a7a7", "#0000ff", "#ff66ff", "#ff0000", "#993399", "#ffcc66", "#e8f106", "#ffffcc", "#000000", "#ff6600"]
-        };
+          var data = google.visualization.arrayToDataTable([
+            ['{{data[0][2][0][0]}}', '{{data[0][2][0][1]}}'],
+            [metallic,     metallic_data],
+            [brown,     brown_data],
+            [misc,     misc_data],
+            [green,     green_data],
+            [gray,     gray_data],
+            [blue,     blue_data],
+            [pink,     pink_data],
+            [red,     red_data],
+            [violet,     violet_data],
+            [beige,     beige_data],
+            [yellow,     yellow_data],
+            [white,     white_data],
+            [black,     black_data],
+            [orange,     orange_data]
+          ]);
+          var options = {
+            title: 'Color Distribution',
+            colors: ["#dbd9d9", "#996633", "#ccffcc","#009933", "#a7a7a7", "#0000ff", "#ff66ff", "#ff0000", "#993399", "#ffcc66", "#e8f106", "#ffffcc", "#000000", "#ff6600"]
+          };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-        chart.draw(data, options);
-      }
+          chart.draw(data, options);
+        }
     </script>
   </head>
 
     <body style="background-image: url({{url_for('static', filename='4.png')}})">
-            <nav class="transparent">
-                    <div class="nav-wrapper">
-                        <a href="#" style='padding-top: 8px; padding-left: 8px' class="brand-logo">
-                            <img class="responsive-img" src="{{url_for('static', filename='herman-miller-logo.svg')}}">
-                        </a>
-                        <a href="#" style='font-family: Nunito; padding-left: 60px' class="brand-logo">Materialize Classification Engine</a>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><a href="/"><i class="material-icons">home</i></a></li>
-                                <li><a href="/about.html"><i class="material-icons">info</i></a></li>
-                              </ul>
-            
-                    </div>
-                    </div>
-                </nav>
+        <nav class="transparent">
+            <div class="nav-wrapper">
+                    <a href="#" style='padding-top: 8px; padding-left: 8px' class="brand-logo">
+                        <img class="responsive-img" src="{{url_for('static', filename='herman-miller-logo.svg')}}">
+                    </a>
+                    <a href="#" style='font-family: Nunito; padding-left: 60px' class="brand-logo">Materialize Classification Engine</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="/"><i class="material-icons">home</i></a></li>
+                        <li><a href="/about.html"><i class="material-icons">info</i></a></li>
+                    </ul>
+
+            </div>
+        </nav>
         <div class="container">
+            {% for item in data %}
             <div class="row">
-                <div style="padding-top: 200px;">    
+                <div style="padding-top: 200px;">
                     <div class="col s2 m6">
                         <div class="card large">
                             <div class="card-image">
-                                <img src={{data[0][0]}}>
+                                <img src='{{ item[0] }}'>
                             </div>
                             <div class="card-content">
                                 <div class="left-align">
-                                    <h3 style='font-family: Nunito; font-weight: bold;'><b>{{data[0][1]}}</b></h3>
+                                    <h3 style='font-family: Nunito; font-weight: bold;'><b>{{ item[1] }}</b></h3>
                                     <h5 style='font-family: Nunito; font-weight: bold;'><b>Blank Style</b></h5>
                                 </div>
                             </div>
@@ -133,6 +132,7 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
        <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="js/materialize.min.js"></script>
