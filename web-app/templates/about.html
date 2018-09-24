@@ -7,6 +7,7 @@
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -16,49 +17,53 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
-    <nav class="red darken-1">
+
+<body style="background: rgb(255,7,109);
+background: linear-gradient(270deg, rgba(255,7,109,1) 0%, rgba(223,20,60,1) 100%);">
+    <nav class="transparent">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo"></a>
+            <a href="#" style='padding-top: 8px; padding-left: 8px' class="brand-logo">
+                <img class="responsive-img" src="{{url_for('static', filename='hermanmiller.png')}}">
+            </a>
+            <a href="#" style='font-family: Nunito; padding-left: 60px' class="brand-logo">Materialize Classification Engine</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/">Home</a></li>
+                <li><a href="/"><i class="material-icons">home</i></a></li>
+                <li><a href="/about.html"><i class="material-icons">info</i></a></li>
             </ul>
         </div>
     </nav>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
-
-        <br><br>
-        <h2 class="header center black-text">Herman Miller Capstone Project</h2>
-        <div class="row center">
-            <h5 class="header col s12 light">About Us</h5>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col s10 offset-s1">
-                    <figure>
-                        <img class="responsive-img" 
-                        src="{{url_for('static', filename='herman-miller-team.jpg')}}">
-                        <figcaption>Ritwik Biswas | Josh Bhattarai | Joe Smith | Ted Stacy | David Xuan</figcaption>
-                    </figure>
+            <br><br>
+            <h2 class="header center white-text">Herman Miller Capstone Project</h2>
+            <div class="row center">
+                <h5 class="header col s12 light" style="color: white">About Us</h5>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 offset-s1">
+                        <figure>
+                            <img class="responsive-img" 
+                            src="{{url_for('static', filename='herman-miller-team.jpg')}}">
+                            <figcaption style="color: white">Ritwik Biswas | Josh Bhattarai | Joe Smith | Ted Stacy | David Xuan</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 offset-s3">
+                        <!-- <h5>Herman Miller:</h5>
+                        <ul>
+                            <li>Tom Holcomb</li>
+                            <li>Andrea Haggerty</li>
+                        </ul> -->
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s6 offset-s3">
-                    <!-- <h5>Herman Miller:</h5>
-                    <ul>
-                        <li>Tom Holcomb</li>
-                        <li>Andrea Haggerty</li>
-                    </ul> -->
-                </div>
-            </div>
-        </div>
-        <br><br>
-
+            <br><br>
         </div>
     </div>
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
-  </body>
+</body>
 </html>

@@ -12,67 +12,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/materialize.css') }}"> -->
 
-  
-
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
-       
-    <nav class="red darken-1">
+<body style="background: rgb(255,7,109);
+background: linear-gradient(270deg, rgba(255,7,109,1) 0%, rgba(223,20,60,1) 100%);">     
+    <nav class="transparent">
         <div class="nav-wrapper">
             <a href="#" style='padding-top: 8px; padding-left: 8px' class="brand-logo">
                 <img class="responsive-img" src="{{url_for('static', filename='hermanmiller.png')}}">
             </a>
             <a href="#" style='font-family: Nunito; font-weight: bold; padding-left: 60px' class="brand-logo">Materialize Classification Engine</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/"><i class="material-icons">home</i></a></li>
-                    <li><a href="/about.html"><i class="material-icons">info</i></a></li>
+                <li><a href="/"><i class="material-icons">home</i></a></li>
+                <li><a href="/about.html"><i class="material-icons">info</i></a></li>
             </ul>
 
         </div>
     </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
 
-      <br><br>
-      <!-- <h2 class="header center black-text">Herman Miller Capstone Project</h2> -->
-      <div class="row">
-        <div class="col s3 ">
-          </div>
-        <div class="col s2 m6">
-            <div style="padding-top: 50px;">
-                <h4>live <b>models</b></h4>
-                <div class="card red">
-                    <div class="collection red">
-                        <a href="#!" class="collection-item ">ImageNet Inception v3 Color classifier</a>
-                        <a href="#!" class="collection-item active">RGB Adaboost Decision Tree Classifier - 80% accuracy</a>
-                        <a href="#!" class="collection-item">ImageNet Inception v3 Pattern classifier</a>
+            <br><br>
+            <!-- <h2 class="header center black-text">Herman Miller Capstone Project</h2> -->
+             <div class="row">
+                <div class="col s3 ">
+                </div>
+                <div class="col s2 m6">
+                    <div style="padding-top: 50px;">
+                        <h4>live <b>models</b></h4>
+                        <div class="card red">
+                            <div class="collection red">
+                                <a href="#!" class="collection-item ">ImageNet Inception v3 Color classifier</a>
+                                <a href="#!" class="collection-item active">RGB Adaboost Decision Tree Classifier - 80% accuracy</a>
+                                <a href="#!" class="collection-item">ImageNet Inception v3 Pattern classifier</a>
+                            </div>
+                        </div>
+                        <!--<div class="center-align">
+                        <h5><span style="color: #000000"> Submit an image below to see the results</b></span></h5>
+                        </div>-->
                     </div>
                 </div>
-                <!--<div class="center-align">
-                <h5><span style="color: #000000"> Submit an image below to see the results</b></span></h5>
-                </div>-->
             </div>
+            <div class="center-align">
+                <div>
+                    <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+                        <label class="btn grey">
+                            <input  type='file' name='photo' multiple required>
+                        </label>
+
+                        <input class = 'btn grey' type="submit">
+                    </form>
+                </div>
+            </div>
+            <br><br>
         </div>
-      </div>
-      <div class="center-align">
-          <div>
-              <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
-                  <label class="btn red darken-1 ">
-                      <input  type='file' name='photo' multiple required>
-                  </label>
-
-                  <input class = 'btn grey' type="submit">
-              </form>
-          </div>
-      </div>
-      <br><br>
-
     </div>
-  </div>
-
-      <!-- Compiled and minified JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 </html>
