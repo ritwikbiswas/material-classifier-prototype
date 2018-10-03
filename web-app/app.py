@@ -1,9 +1,19 @@
 from flask import Flask,render_template, request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from sklearn.ensemble import AdaBoostClassifier
+# import tensorflow as tf
 import cv2
 import sys
 import pickle
+import numpy as np
+import numpy as np
+from skimage.io import imread
+import requests
+import json
+import ast
+# from skimage.transform import resize
+from scipy import misc
+# read image from path
 
 app = Flask(__name__)
 
@@ -11,6 +21,7 @@ photos = UploadSet('photos', IMAGES)
 
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 configure_uploads(app, photos)
+
 
 
 @app.route("/")
@@ -27,6 +38,7 @@ def about():
 # def NAME():
 #     return render_template("PAGE.html")
 
+################ COLOR MODEL FUNCTION ###################
 
 def extract_model(filename):
     '''
@@ -62,13 +74,17 @@ def extract_windows(image_path, window_width, window_height):
     '''
     extracts rgb values of image broken into windows of width x heigh
     '''
-    import numpy as np
-    from skimage.io import imread
 
-    # read image from path
-    # im = imread('dataset/COLOR/ORANGE/281620453_detail.jpg') <-- this can't be right
     im = imread(image_path)
-
+    print(str("\nDIMENSIONS: " + str(im.shape[0]) + "," + str(im.shape[1])))
+    
+    #determine resizing of image
+    output_width = 300
+    if im.shape[1] > output_width:
+        scale_factor = int(im.shape[1])/output_width
+        im = misc.imresize(im,(int(im.shape[0] / scale_factor), int(im.shape[1] / scale_factor)))
+        #misc.imshow(im)
+    print(str("\nPOST-DIMENSIONS: " + str(im.shape[0]) + "," + str(im.shape[1])))
     # set block size to 3x3
     wnd_r = window_width
     wnd_c = window_height
@@ -81,23 +97,19 @@ def extract_windows(image_path, window_width, window_height):
         for c in range(0, im.shape[1] - wnd_c, wnd_c):
             window = im[r:r + wnd_r, c:c + wnd_c]
             avg = np.mean(window, axis=(0, 1))
-            rgb_list.append(avg)
+            rgb_list.append(avg[:3])
 
     return rgb_list, im
 
 
-def make_predictions(rgb_list, model_path, label_map_path,im):
+def make_predictions(rgb_list, clf, label_map,im):
     '''
     extract pickled model and load
     run classification for any pictures in directory
     potentially show rgb graph
     '''
     
-    # extract model
-    clf = extract_model(model_path)
 
-    # extract labels
-    label_map = extract_label_map(label_map_path)
 
     #test on single image
     prediction_list = clf.predict(rgb_list)
@@ -137,6 +149,57 @@ def make_predictions(rgb_list, model_path, label_map_path,im):
     # plt.bar(list(color_store.keys()), color_store.values(), color='grey')
     # plt.xticks(rotation=90)
     # plt.show(block=True)
+
+################ PATTERN MODEL FUNCTIONS ################
+def load_graph(model_file):
+    graph = tf.Graph()
+    graph_def = tf.GraphDef()
+
+    with open(model_file, "rb") as f:
+        graph_def.ParseFromString(f.read())
+    with graph.as_default():
+        tf.import_graph_def(graph_def)
+
+    return graph
+
+
+def load_labels(label_file):
+    label = []
+    proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
+    for l in proto_as_ascii_lines:
+        label.append(l.rstrip())
+    return label
+
+
+def read_tensor_from_image_file(file_name,
+                                input_height=299,
+                                input_width=299,
+                                input_mean=0,
+                                input_std=255):
+    input_name = "file_reader"
+    output_name = "normalized"
+    file_reader = tf.read_file(file_name, input_name)
+    if file_name.endswith(".png"):
+        image_reader = tf.image.decode_png(
+            file_reader, channels=3, name="png_reader")
+    elif file_name.endswith(".gif"):
+        image_reader = tf.squeeze(
+            tf.image.decode_gif(file_reader, name="gif_reader"))
+    elif file_name.endswith(".bmp"):
+        image_reader = tf.image.decode_bmp(file_reader, name="bmp_reader")
+    else:
+        image_reader = tf.image.decode_jpeg(
+            file_reader, channels=3, name="jpeg_reader")
+    float_caster = tf.cast(image_reader, tf.float32)
+    dims_expander = tf.expand_dims(float_caster, 0)
+    resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
+    normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
+    sess = tf.Session()
+    result = sess.run(normalized)
+    return result
+
+
+
 
 
 """ @app.route('/upload', methods=['GET', 'POST'])
@@ -198,29 +261,59 @@ def upload():
         return render_template('picture.html', data = data)
     return render_template('picture.html') """
 
+
 @app.route('/upload', methods=['POST'])
 def upload():
-    """ allows the user to upload multiple images and be tested by all of Ritwiks models """
+    
+    """ allows the user to upload multiple images and be tested by all of Ritwiks and Davids models """
+    ## COLOR MODEL AND LABEL EXTRACTION
     uploaded_files = request.files.getlist("photo")
     print("uploaded files: " + str(uploaded_files))
     full_data = []
+    
+    #model_path = 'adaboost_0.99_0.79.sav'
+    model_path = 'adaboost_new_1.0_0.98.sav'
+    label_path = 'labels.txt'
+    # extract model
+    clf = extract_model(model_path)
+
+    # extract labels
+    label_map = extract_label_map(label_path)
+
     for file in uploaded_files:
+        
         filename = photos.save(file)
         path = 'static/img/' + filename
-        model_path = 'adaboost_0.99_0.79.sav'
-        label_path = 'labels.txt'
+        
         img_path = path
-        window_size = 3
+        print(img_path)
+
+        ### PATTERN CLASSIFICATION ###
+        pattern_type = "STYLE"
+        try:
+            url = 'http://pattern-classifier-env.gwms7amgnm.us-east-1.elasticbeanstalk.com/'
+            data = {'file': open(img_path, 'rb')}
+    
+            #send request to classifier and return request classificaiton
+            r = requests.post(url, files=data)
+            obj = r.json()
+            pattern_type = str(obj['img1']['label'])
+        except:
+            pattern_type = "EMPTY STYLE"
+
+
+        ### COLOR CLASSIFICATION
+        window_size = 7
 
         #extract rgb list
         rgb_list, image = extract_windows(img_path, window_size, window_size)
 
         #run prediction
-        final_out, color_store = make_predictions(rgb_list,model_path,label_path,image)
-        data = [img_path,final_out]
+        final_out, color_store = make_predictions(rgb_list,clf,label_map,image)
+        data = [img_path,final_out.lower()]
         
         #sort prediction colors
-        labels = extract_label_map(label_path)
+        labels = label_map
 
         temp_store = {}
         array=[]
@@ -237,10 +330,26 @@ def upload():
                 array.append([labels[i],0])
         
         data.append(array)
+        
+        data.append(pattern_type)
         full_data.append(data)
+
+    # sess.close()
+    # print(r)
     print("Full Data: " + str(full_data))
     return render_template('picture.html', data = full_data)
 
+@app.route('/recommendation', methods=["POST"])
+def recommendation():
+    data = dict(request.form)   #this is the {{item}} passed from picture
+    del data['action']          #removes extra, unneccessary tag
+    for key in data.keys():     # there should only be one key but need to loop
+        item = key              # item contains all the information about the fabric
+    item = ast.literal_eval(item)
+    print('Recommendation: ' + str(item))
+    return render_template('recommendation.html', data = item)
+
 
 if __name__ == "__main__":
+    app.jinja_env.cache = {}
     app.run(debug=True)

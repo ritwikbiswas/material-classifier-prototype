@@ -18,20 +18,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body style="background: rgb(255,7,109);
-background: linear-gradient(270deg, rgba(255,7,109,1) 0%, rgba(223,20,60,1) 100%);">
-    <nav class="transparent">
-        <div class="nav-wrapper">
-            <a href="#" style='padding-top: 8px; padding-left: 8px' class="brand-logo">
-                <img class="responsive-img" src="{{url_for('static', filename='hermanmiller.png')}}">
-            </a>
-            <a href="#" style='font-family: Nunito; padding-left: 60px' class="brand-logo">Materialize Classification Engine</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/"><i class="material-icons">home</i></a></li>
-                <li><a href="/about.html"><i class="material-icons">info</i></a></li>
-            </ul>
-        </div>
-    </nav>
+<body style="background: rgb(252,73,141);
+background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;"> 
+    <div class="row">
+      <div class="col s3">
+        <a class="valign-wrapper" href="https://www.hermanmiller.com/" style='padding-top: 20px; padding-left: 8px' class="brand-logo">
+            <img class="responsive-img" src="{{url_for('static', filename='hermanmiller.png')}}">
+        </a>
+      </div>
+      <div class="col s6">
+          <h3 style='font-family: Nunito; font-weight: bold; padding-left: 70px; color: white;'>Material Classification Engine</h3>
+      </div>
+      <div class="col s3">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="/"><i class="medium material-icons white-text">home</i></a>
+            <a href="/about.html"><i class="medium material-icons white-text">info</i></a>
+          </ul>
+      </div>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <br><br>

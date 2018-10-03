@@ -17,7 +17,7 @@ Full Data:
 			['WHITE', 0], 
 			['BLACK', 0], 
 			['ORANGE', 1]
-		]
+		], 'solid texture'
 	], 
 	['static/img/281340001_detail.jpg(1,0)', 'BEIGE(1,1)', 
 		[
@@ -36,6 +36,6 @@ Full Data:
 			['WHITE', 17], 
 			['BLACK', 0], 
 			['ORANGE', 0]
-		]
+		], 'abstract'
 	]
 ]

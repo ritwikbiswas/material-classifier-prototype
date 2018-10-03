@@ -8,3 +8,5 @@ pickleshare==0.7.4
 gunicorn==19.9.0
 scikit-image==0.14.0
 numpy==1.14.3 
+requests==2.8.1
+tensorflow

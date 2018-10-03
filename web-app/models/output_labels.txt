@@ -1,0 +1,9 @@
+abstract
+botanical
+felt
+geometric
+solid texture
+standard
+stripe
+tufted
+woven
