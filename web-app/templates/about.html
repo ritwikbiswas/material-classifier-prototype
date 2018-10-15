@@ -7,7 +7,7 @@
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -17,41 +17,46 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-
-<body style="background: rgb(252,73,141);
-background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;"> 
-    <div class="row">
-      <div class="col s3">
-        <a class="valign-wrapper" href="https://www.hermanmiller.com/" style='padding-top: 20px; padding-left: 8px' class="brand-logo">
-            <img class="responsive-img" src="{{url_for('static', filename='hermanmiller.png')}}">
-        </a>
-      </div>
-      <div class="col s6">
-          <h3 style='font-family: Nunito; font-weight: bold; padding-left: 70px; color: white;'>Material Classification Engine</h3>
-      </div>
-      <div class="col s3">
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <a href="/"><i class="medium material-icons white-text">home</i></a>
-            <a href="/about.html"><i class="medium material-icons white-text">info</i></a>
-          </ul>
-      </div>
-    </div>
+<body style="background: white"> <!-- style="background: rgb(252,73,141);
+    background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;">-->
+    <nav>
+        <div style="background: rgb(252,73,141);
+        background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;" class="nav-wrapper">
+            <a href="#" style='padding-left: 20px; font-family: Nunito; font-weight: bold; ' class="brand-logo">FIBRE</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!--<div class="row">
+        <div class="col s4">
+            <h3 style='padding-left: 40px; font-family: Nunito; font-weight: bold;'>Fabric Classifier</h3>
+        </div>
+        <div class="col s6"></div>
+        <div class="col s2" style='padding-top: 40px; text-align: right;'>
+            <a href="/"><i class="small material-icons black-text">home</i></a>
+            <a href="/about.html"><i style='padding-left: 10px;' class="small material-icons black-text">info</i></a>
+        </div>
+    </div>-->
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <br><br>
-            <h2 class="header center white-text">Herman Miller Capstone Project</h2>
+            <h3 class="header center black-text">Fabric Identification Based Recommendation Engine</h3>
             <div class="row center">
-                <h5 class="header col s12 light" style="color: white">About Us</h5>
+                <h4 class="header col s12 light">About Us</h4>
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col s10 offset-s1">
+                    <div class="col s1"></div>
+                    <div class="col s10">
                         <figure>
-                            <img class="responsive-img" 
-                            src="{{url_for('static', filename='herman-miller-team.jpg')}}">
-                            <figcaption style="color: white">Ritwik Biswas | Josh Bhattarai | Joe Smith | Ted Stacy | David Xuan</figcaption>
+                            <img style="display: block; margin-left: auto; margin-right: auto; height: 100%; width: 100%" src="{{url_for('static', filename='team-photo.jpg')}}" alt="Team Herman Miller">
+
+                            <figcaption style="text-align: center">Ted Stacy | Ritwik Biswas | Joe Smith | David Xuan | Josh Bhattarai</figcaption>
                         </figure>
                     </div>
+                    <div class="col s1"></div>
                 </div>
                 <div class="row">
                     <div class="col s6 offset-s3">

@@ -7,87 +7,82 @@
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    
-
 </head>
-<body style="background: rgb(252,73,141);
-background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;">  
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <div class="row">
+<body style="background: white"> <!-- style="background: rgb(252,73,141);
+    background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;">--><!--style="background: rgb(252,73,141);
+background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;"-->
+    <!--<div class="row">
         <div class="col s4">
-            <h3 style='padding-left: 40px; font-family: Nunito; font-weight: bold; color: white;'>fiber</h3>            
+            <h3 style='padding-left: 40px; font-family: Nunito; font-weight: bold; color: black;'>Fabric Classifier</h3>
             <a href="javascript:history.back()">
-                <i style="padding-left: 40px;" class="medium material-icons white-text">keyboard_return</i>
+                <i style="padding-left: 40px;" class="medium material-icons black-text">keyboard_return</i>
             </a>
         </div>
-        <div class="col s7">
-            
+        <div class="col s6"></div>
+        <div class="col s2" style='padding-top: 40px; text-align: right;'>
+            <a href="/"><i class="small material-icons black-text">home</i></a>
+            <a href="/about.html"><i style='padding-left: 10px;' class="small material-icons black-text">info</i></a>
         </div>
-        <div class="col s1" style='padding-top: 40px;'>
-            <a href="/"><i class="small material-icons white-text">home</i></a>
-            <a href="/about.html"><i style='padding-left: 10px;' class="small material-icons white-text">info</i></a>
+    </div>-->
+    <nav>
+        <div style="background: rgb(252,73,141);
+            background: linear-gradient(325deg, rgba(252,73,141,1) 0%, rgba(249,75,75,1) 57%) fixed;" class="nav-wrapper">
+            <a href="#" style='padding-left: 20px; font-family: Nunito; font-weight: bold; ' class="brand-logo">FIBRE</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
         </div>
-    </div>
-
+    </nav>
     <div class="container">
         <div class="center-align">
-            <h3 style='padding-bottom: 20px; font-family: Nunito; color: white'>Your image:</h3>
-        </div>
-            
+            <h3 style='padding-bottom: 20px; font-family: Nunito;'>Customer’s Requested Fabric</h3>
+        </div>     
         <div class="row">
             <div class="col s3"></div>
             <div class="col s6">
                 <div class="card medium">
                     <div class="card-image">
-                        <img src='{{ data[0] }}'>
+                        <img src='{{ data[4][0] }}'>
                     </div>
                     <div class="card-content">
-                        <div class="left-align">
-                            <h4 style='font-family: Nunito; font-weight: bold;'><b>{{ data[1] }}</b></h4>
-                            <h5 style='font-family: Nunito; text-align: left'><b>{{ data[3] }}</b></h5>
-                        </div>
+                        <h5 style='font-family: Nunito;'><b>Color: {{ data[4][1] }}</b></h5>
+                        <h5 style='font-family: Nunito;'><b>Pattern: {{ data[4][2] }}</b></h5>
                     </div>
                 </div>
             </div>
             <div class="col s3"></div>
         </div>
         <div class="center-align">
-                <h3 style='padding-bottom: 20px;padding-top: 40px; font-family: Nunito; color: white'>Some recommendations you might like:</h3>
+            <h3 style='padding-bottom: 20px;padding-top: 40px; font-family: Nunito;'>Fabric Recommendations</h3>
         </div>
         <div class="row">
+            {% for i in range(0, (data|length) - 1) %}
             <div class="col s3">
                 <div class="card small">
+                    <div class="card-image">
+                        <img src='{{ data[i][2] }}'>
+                    </div>
                     <div class="card-content">
-                        <div class="left-align">
-                            
-                        </div>
+                        <h6 style='font-family: Nunito;'><b>{{ data[i][0] }}</b></h6>
+                        <!--<h6 style='font-family: Nunito; text-align: left'><b>{{data[0][1]}} % match</b></h6>-->
                         <div class="right-align">
-                            
+                            <a href="{{ data[i][3] }}"><i style='padding-left: 10px;' class="small material-icons green-text">shopping_cart</i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col s3">
-                <div class="card small">
-                </div>
-            </div>
-            <div class="col s3">
-                <div class="card small">
-                </div>
-            </div>
-            <div class="col s3">
-                <div class="card small">
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
-   </body>
+</body>
 </html>

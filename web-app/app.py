@@ -11,6 +11,7 @@ from skimage.io import imread
 import requests
 import json
 import ast
+import collections
 # from skimage.transform import resize
 from scipy import misc
 # read image from path
@@ -97,6 +98,8 @@ def extract_windows(image_path, window_width, window_height):
         for c in range(0, im.shape[1] - wnd_c, wnd_c):
             window = im[r:r + wnd_r, c:c + wnd_c]
             avg = np.mean(window, axis=(0, 1))
+            if isinstance(avg, np.float64):
+                avg = [avg,avg,avg]
             rgb_list.append(avg[:3])
 
     return rgb_list, im
@@ -199,69 +202,6 @@ def read_tensor_from_image_file(file_name,
     return result
 
 
-
-
-
-""" @app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    if request.method == 'POST' and 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = 'static/img/' + filename
-
-        ### OLD CLASSIFIER
-        #clf = extract_model('adaboost_0.99_0.79.sav')
-        # extract labels
-        #label_map = extract_label_map('labels.txt')
-        #test on single image
-        # tests = []
-        # img_path = path
-        # rgb_mean = color_mean_extractor(img_path)
-        # tests.append(rgb_mean)
-        # data = [img_path, label_map[clf.predict(tests)[0]].lower()]
-        # print(label_map[clf.predict(tests)[0]])
-
-        model_path = 'adaboost_0.99_0.79.sav'
-        label_path = 'labels.txt'
-        img_path = path
-        window_size = 3
-
-        #extract rgb list
-        rgb_list,image = extract_windows(img_path,window_size,window_size)
-
-        #run prediction
-        final_out, color_store = make_predictions(rgb_list,model_path,label_path,image)
-        data = [img_path,final_out]
-        
-        #sort prediction colors
-        labels = extract_label_map(label_path)
-        # print(labels)
-        # print(color_store)
-
-        temp_store = {}
-        array=[]
-        array.append(["Color","Frequency"])
-        # array.append(['yo',12])
-        # array.append(['ro',13])
-        # array.append(['to',16])
-
-        temp_store = {}
-        for i in color_store:
-            temp_store[i[0]] = i[1]
-        print(temp_store)
-        for i in labels:
-            if labels[i] in temp_store:
-                array.append([labels[i],temp_store[labels[i]]])
-            else:
-                array.append([labels[i],0])
-        
-        data.append(array)
-        print(data[2])
-        print(img_path)
-        print(final_out)
-        return render_template('picture.html', data = data)
-    return render_template('picture.html') """
-
-
 @app.route('/upload', methods=['POST'])
 def upload():
     
@@ -346,8 +286,64 @@ def recommendation():
     for key in data.keys():     # there should only be one key but need to loop
         item = key              # item contains all the information about the fabric
     item = ast.literal_eval(item)
-    print('Recommendation: ' + str(item))
-    return render_template('recommendation.html', data = item)
+
+    #Create request for Rec Engine
+    #logic to only include top 3 colors
+    top_n = 7
+    top_colors = []
+    colors = item[2][1:]
+    colors.sort(key=lambda k: (k[1]), reverse=True)
+    for i in range(0,top_n):
+        top_colors.append(colors[i][0])
+    
+    #count total to give percentage
+    total = 0
+    colors
+    for i in colors:
+        print(i)
+        i[0] = i[0].lower().capitalize()
+        total += int(i[1])
+
+    #store color dict with only top n values
+    color_dict = {}
+    for i in colors:
+        if top_n == 0:
+            color_dict[i[0]] = 0
+        else:
+            color_dict[i[0]] = i[1]/total
+            top_n -= 1
+
+    #sort dictionary in alphabetical
+    color_dict = collections.OrderedDict(sorted(color_dict.items()))
+
+    #build request
+    rec_request = {}
+    rec_request['Pattern'] = item[len(item)-1].capitalize()
+    rec_request['Color Distribution'] = dict(color_dict)
+    data_json = json.dumps(rec_request)
+
+    #print(data_json)
+
+    #Send JSON request
+    r = requests.post('https://kr4h95boel.execute-api.us-east-2.amazonaws.com/production_query', data=data_json)
+    obj = r.json()
+    # print(obj)
+    
+    recommendations = []
+    #empty recommendations
+    for i in range(0,4):
+        recommendations.append(['No Recommendation',100,'http://dentdelion.net/picture/2018/04/Used-Office-Furniture-Tri-State-Office-Furniture.jpg','https://www.hermanmiller.com/'])
+    
+    count = 0
+    for entry in obj:
+        if count == 4:
+            break
+        temp = [entry[2],entry[3],entry[0],entry[1]]
+        recommendations[count] = temp
+        count += 1
+    recommendations.append([item[0],item[1],item[len(item)-1]])
+    print(recommendations)
+    return render_template('recommendation.html', data = recommendations)
 
 
 if __name__ == "__main__":
